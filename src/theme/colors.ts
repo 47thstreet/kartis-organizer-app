@@ -1,0 +1,18 @@
+export const colors = {
+  background: '#0D0D14',
+  surface: '#1A1A2E',
+  surfaceLight: '#242442',
+  card: '#16162A',
+  violet: '#8B5CF6',
+  violetLight: '#A78BFA',
+  violetDark: '#6D28D9',
+  violetMuted: 'rgba(139, 92, 246, 0.15)',
+  text: '#FFFFFF',
+  textSecondary: '#9CA3AF',
+  textMuted: '#6B7280',
+  success: '#10B981',
+  warning: '#F59E0B',
+  error: '#EF4444',
+  border: '#2D2D4A',
+  overlay: 'rgba(0, 0, 0, 0.6)',
+};
