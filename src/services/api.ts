@@ -10,7 +10,9 @@ import {
   LiveStatsData,
 } from '../types';
 
-const API_BASE = 'https://api.kartis.io/v1/organizer';
+const API_BASE = process.env.EXPO_PUBLIC_KARTIS_URL
+  ? `${process.env.EXPO_PUBLIC_KARTIS_URL}/v1/organizer`
+  : 'http://localhost:3031/v1/organizer';
 
 // Mock data for development
 const mockEvents: Event[] = [
