@@ -5,6 +5,9 @@ import {
   Promoter,
   CheckInResult,
   AnalyticsData,
+  Webhook,
+  VenueMap,
+  LiveStatsData,
 } from '../types';
 
 const API_BASE = 'https://api.kartis.io/v1/organizer';
@@ -239,5 +242,115 @@ export const api = {
   async getAnalytics(): Promise<AnalyticsData> {
     await delay(400);
     return mockAnalytics;
+  },
+
+  async getWebhooks(): Promise<Webhook[]> {
+    await delay(300);
+    return [
+      {
+        id: 'wh-1',
+        name: 'Ticket Purchase',
+        url: 'https://hooks.example.com/ticket-sold',
+        events: ['ticket.purchased', 'ticket.refunded'],
+        active: true,
+        lastTriggered: '2026-03-27T14:30:00Z',
+        failCount: 0,
+        secret: 'whsec_****',
+        createdAt: '2026-02-15',
+      },
+      {
+        id: 'wh-2',
+        name: 'Check-In Sync',
+        url: 'https://hooks.example.com/checkin',
+        events: ['checkin.completed'],
+        active: true,
+        lastTriggered: '2026-03-27T22:15:00Z',
+        failCount: 0,
+        secret: 'whsec_****',
+        createdAt: '2026-03-01',
+      },
+      {
+        id: 'wh-3',
+        name: 'CRM Integration',
+        url: 'https://crm.example.com/webhook',
+        events: ['ticket.purchased', 'order.refunded', 'promoter.applied'],
+        active: false,
+        lastTriggered: '2026-03-20T10:00:00Z',
+        failCount: 3,
+        secret: 'whsec_****',
+        createdAt: '2026-01-20',
+      },
+    ];
+  },
+
+  async toggleWebhook(id: string): Promise<{ success: boolean }> {
+    await delay(300);
+    return { success: true };
+  },
+
+  async deleteWebhook(id: string): Promise<{ success: boolean }> {
+    await delay(300);
+    return { success: true };
+  },
+
+  async testWebhook(id: string): Promise<{ success: boolean; statusCode: number }> {
+    await delay(800);
+    return { success: true, statusCode: 200 };
+  },
+
+  async getVenueMap(): Promise<VenueMap> {
+    await delay(300);
+    return {
+      id: 'vm-1',
+      name: 'The Black Pearl - Main Floor',
+      width: 400,
+      height: 600,
+      zones: [
+        { id: 'z-1', name: 'Main Stage', type: 'stage', x: 100, y: 20, width: 200, height: 80, color: '#8B5CF6' },
+        { id: 'z-2', name: 'VIP Area', type: 'vip', x: 20, y: 140, width: 120, height: 100, capacity: 60, color: '#F59E0B' },
+        { id: 'z-3', name: 'Dance Floor', type: 'general', x: 160, y: 140, width: 220, height: 160, capacity: 300, color: '#6D28D9' },
+        { id: 'z-4', name: 'Main Bar', type: 'bar', x: 20, y: 280, width: 120, height: 60, color: '#10B981' },
+        { id: 'z-5', name: 'Side Bar', type: 'bar', x: 300, y: 340, width: 80, height: 60, color: '#10B981' },
+        { id: 'z-6', name: 'Entrance', type: 'entrance', x: 160, y: 520, width: 80, height: 40, color: '#3B82F6' },
+        { id: 'z-7', name: 'VIP Lounge', type: 'vip', x: 20, y: 400, width: 140, height: 80, capacity: 40, color: '#F59E0B' },
+        { id: 'z-8', name: 'Backstage', type: 'backstage', x: 300, y: 20, width: 80, height: 80, color: '#6B7280' },
+        { id: 'z-9', name: 'Restrooms', type: 'restroom', x: 300, y: 440, width: 80, height: 50, color: '#9CA3AF' },
+      ],
+    };
+  },
+
+  async saveVenueMap(map: VenueMap): Promise<{ success: boolean }> {
+    await delay(400);
+    return { success: true };
+  },
+
+  async getLiveStats(eventId: string): Promise<LiveStatsData> {
+    await delay(300);
+    return {
+      eventId: '1',
+      eventTitle: 'Neon Nights - DJ Set',
+      currentAttendance: 287,
+      totalCapacity: 500,
+      checkInsPerMinute: 4.2,
+      revenueToday: 17100,
+      doorRevenue: 2400,
+      barRevenue: 5800,
+      peakHour: '11:00 PM',
+      timeline: [
+        { time: '9PM', checkIns: 12, revenue: 600 },
+        { time: '10PM', checkIns: 45, revenue: 2250 },
+        { time: '10:30', checkIns: 68, revenue: 3400 },
+        { time: '11PM', checkIns: 89, revenue: 4450 },
+        { time: '11:30', checkIns: 48, revenue: 2400 },
+        { time: '12AM', checkIns: 25, revenue: 4000 },
+      ],
+      zoneOccupancy: [
+        { zone: 'Dance Floor', current: 180, capacity: 300 },
+        { zone: 'VIP Area', current: 52, capacity: 60 },
+        { zone: 'VIP Lounge', current: 28, capacity: 40 },
+        { zone: 'Main Bar', current: 15, capacity: 30 },
+        { zone: 'Side Bar', current: 12, capacity: 20 },
+      ],
+    };
   },
 };

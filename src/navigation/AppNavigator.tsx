@@ -10,6 +10,9 @@ import CheckInScreen from '../screens/CheckInScreen';
 import OrdersScreen from '../screens/OrdersScreen';
 import PromotersScreen from '../screens/PromotersScreen';
 import AnalyticsScreen from '../screens/AnalyticsScreen';
+import WebhooksScreen from '../screens/WebhooksScreen';
+import VenueMapScreen from '../screens/VenueMapScreen';
+import LiveStatsScreen from '../screens/LiveStatsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -57,6 +60,24 @@ const tabConfig: {
     iconFocused: 'bar-chart',
   },
   {
+    name: 'Webhooks',
+    component: WebhooksScreen,
+    icon: 'git-network-outline',
+    iconFocused: 'git-network',
+  },
+  {
+    name: 'VenueMap',
+    component: VenueMapScreen,
+    icon: 'map-outline',
+    iconFocused: 'map',
+  },
+  {
+    name: 'LiveStats',
+    component: LiveStatsScreen,
+    icon: 'pulse-outline',
+    iconFocused: 'pulse',
+  },
+  {
     name: 'Settings',
     component: SettingsScreen,
     icon: 'settings-outline',
@@ -91,7 +112,14 @@ export default function AppNavigator() {
           name={tab.name}
           component={tab.component}
           options={{
-            tabBarLabel: tab.name === 'CheckIn' ? 'Check-In' : tab.name,
+            tabBarLabel:
+              tab.name === 'CheckIn'
+                ? 'Check-In'
+                : tab.name === 'VenueMap'
+                ? 'Map'
+                : tab.name === 'LiveStats'
+                ? 'Live'
+                : tab.name,
             tabBarIcon: ({ focused, color, size }) => (
               <Ionicons
                 name={focused ? tab.iconFocused : tab.icon}
